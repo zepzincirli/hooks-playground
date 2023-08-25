@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
 import React, { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0);
-  const handleIncrease =() => setCount(count + 1);
-  const handleDecrease =() => setCount(count - 1);
-  
-  function handleReset()
-  {
-    setCount(0);
+function useInput() {
+  const [value, setValue] = useState('')
+
+  function onChange(event) {
+    setValue(event.target.value);
   }
 
+  return {
+    value,
+    onChange
+  }
+}
+
+function App() {
   return (
-    <div>
-      <button onClick={handleIncrease}>Increase</button>
-      <button onClick={handleDecrease}>Decrease</button>
-      <button onClick={handleReset}>Reset</button>
-      <h1>{count}</h1>
-    </div>
-  );
+    <form>
+      <input
+        type="text"
+        placeholder="Name"
+        { ...useInput() }
+      />
+
+      <input
+        type="text"
+        placeholder="Surname"
+        { ...useInput() }
+      />
+
+      <input
+        type="number"
+        placeholder="Age"
+        { ...useInput() }
+      />
+    </form>
+  )
 }
 
 export default App;
